@@ -133,4 +133,27 @@ body.dark-mode button:hover {
 
 #theme-switch:hover {
     transform: scale(1.1);
+}
+
+.memory-buttons {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.memory-btn {
+    background-color: rgba(0, 170, 255, 0.6) !important;
+    color: white !important;
+    font-size: 1.2rem !important;
+    padding: 10px !important;
+}
+
+.memory-btn:hover {
+    background-color: rgba(0, 170, 255, 0.8) !important;
+}
+
+.memory-btn.active {
+    background-color: rgba(0, 170, 255, 1) !important;
 } 

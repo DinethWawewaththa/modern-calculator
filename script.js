@@ -3,6 +3,7 @@ class Calculator {
         this.previousOperandElement = previousOperandElement;
         this.currentOperandElement = currentOperandElement;
         this.clear();
+        this.memory = 0;
     }
 
     clear() {
@@ -98,6 +99,46 @@ class Calculator {
             this.previousOperandElement.innerText = '';
         }
     }
+
+    memoryStore() {
+        this.memory = parseFloat(this.currentOperand);
+        this.updateMemoryButtons();
+    }
+
+    memoryRecall() {
+        if (this.memory !== null) {
+            this.currentOperand = this.memory.toString();
+            this.updateDisplay();
+        }
+    }
+
+    memoryClear() {
+        this.memory = 0;
+        this.updateMemoryButtons();
+    }
+
+    memoryAdd() {
+        const current = parseFloat(this.currentOperand);
+        if (!isNaN(current)) {
+            this.memory += current;
+            this.updateMemoryButtons();
+        }
+    }
+
+    memorySubtract() {
+        const current = parseFloat(this.currentOperand);
+        if (!isNaN(current)) {
+            this.memory -= current;
+            this.updateMemoryButtons();
+        }
+    }
+
+    updateMemoryButtons() {
+        const memoryButtons = document.querySelectorAll('.memory-btn');
+        memoryButtons.forEach(button => {
+            button.classList.toggle('active', this.memory !== 0);
+        });
+    }
 }
 
 const calculator = new Calculator(
@@ -168,4 +209,25 @@ const themeSwitch = document.getElementById('theme-switch');
 themeSwitch.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     themeSwitch.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+});
+
+// Add memory button event listeners
+document.querySelector('.mc').addEventListener('click', () => {
+    calculator.memoryClear();
+});
+
+document.querySelector('.mr').addEventListener('click', () => {
+    calculator.memoryRecall();
+});
+
+document.querySelector('.m-plus').addEventListener('click', () => {
+    calculator.memoryAdd();
+});
+
+document.querySelector('.m-minus').addEventListener('click', () => {
+    calculator.memorySubtract();
+});
+
+document.querySelector('.ms').addEventListener('click', () => {
+    calculator.memoryStore();
 }); 
