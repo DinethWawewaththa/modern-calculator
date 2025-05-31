@@ -139,6 +139,70 @@ class Calculator {
             button.classList.toggle('active', this.memory !== 0);
         });
     }
+
+    scientificOperation(operation) {
+        const current = parseFloat(this.currentOperand);
+        if (isNaN(current)) return;
+
+        let result;
+        switch (operation) {
+            case 'sin':
+                result = Math.sin(current * Math.PI / 180);
+                break;
+            case 'cos':
+                result = Math.cos(current * Math.PI / 180);
+                break;
+            case 'tan':
+                result = Math.tan(current * Math.PI / 180);
+                break;
+            case '√':
+                if (current < 0) {
+                    alert('Cannot calculate square root of negative number');
+                    return;
+                }
+                result = Math.sqrt(current);
+                break;
+            case 'x²':
+                result = Math.pow(current, 2);
+                break;
+            case 'x³':
+                result = Math.pow(current, 3);
+                break;
+            case 'xʸ':
+                this.operation = 'pow';
+                this.previousOperand = current;
+                this.currentOperand = '0';
+                return;
+            case 'log':
+                if (current <= 0) {
+                    alert('Cannot calculate logarithm of non-positive number');
+                    return;
+                }
+                result = Math.log10(current);
+                break;
+            case 'ln':
+                if (current <= 0) {
+                    alert('Cannot calculate natural logarithm of non-positive number');
+                    return;
+                }
+                result = Math.log(current);
+                break;
+            case 'π':
+                result = Math.PI;
+                break;
+            case 'e':
+                result = Math.E;
+                break;
+            case '|x|':
+                result = Math.abs(current);
+                break;
+        }
+
+        this.currentOperand = result.toString();
+        this.operation = undefined;
+        this.previousOperand = '';
+        this.updateDisplay();
+    }
 }
 
 const calculator = new Calculator(
@@ -230,4 +294,20 @@ document.querySelector('.m-minus').addEventListener('click', () => {
 
 document.querySelector('.ms').addEventListener('click', () => {
     calculator.memoryStore();
+});
+
+// Add scientific mode toggle
+const modeSwitch = document.getElementById('mode-switch');
+const scientificButtons = document.querySelector('.scientific-buttons');
+
+modeSwitch.addEventListener('click', () => {
+    scientificButtons.classList.toggle('hidden');
+    modeSwitch.textContent = scientificButtons.classList.contains('hidden') ? '123' : 'f(x)';
+});
+
+// Add scientific button event listeners
+document.querySelectorAll('.scientific-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.scientificOperation(button.innerText);
+    });
 }); 
