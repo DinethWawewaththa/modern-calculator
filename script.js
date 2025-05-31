@@ -161,4 +161,11 @@ document.addEventListener('keydown', event => {
         calculator.clear();
         calculator.updateDisplay();
     }
+});
+
+// Dark mode toggle
+const themeSwitch = document.getElementById('theme-switch');
+themeSwitch.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    themeSwitch.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
 }); 

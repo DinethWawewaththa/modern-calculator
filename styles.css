@@ -95,4 +95,42 @@ button:hover {
 
 .clear:hover, .delete:hover {
     background-color: rgba(255, 87, 87, 1);
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background: linear-gradient(to right, #1a1a1a, #2d2d2d);
+}
+
+body.dark-mode .calculator {
+    background-color: rgba(40, 40, 40, 0.9);
+}
+
+body.dark-mode button {
+    background-color: rgba(60, 60, 60, 0.75);
+    color: white;
+}
+
+body.dark-mode button:hover {
+    background-color: rgba(80, 80, 80, 0.9);
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#theme-switch {
+    font-size: 24px;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transition: 0.3s;
+}
+
+#theme-switch:hover {
+    transform: scale(1.1);
 } 
